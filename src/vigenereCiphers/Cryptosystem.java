@@ -18,10 +18,30 @@ public class Cryptosystem {
 		}
 	}
 	
+	//returns ciphertext corresponding to given plaintext
 	public char[] encode(char[] pt){
 		this.ciphertext = new char[pt.length];
 		for(int i=0; i<pt.length; i++){
 			int index = (pt[i] + this.key[i%(this.key.length)])%26;
+			this.ciphertext[i] = englishAlphabet[index];
+		}
+		return this.ciphertext;
+	}
+	
+	//returns ciphertext corresponding to random plaintext
+	public char[] encode(){
+		//generate random plaintext
+		int textLength = rand.nextInt(100)+1;
+		this.plaintext = new char[textLength];
+		for(int i=0;i<textLength;i++){
+			int index = rand.nextInt(26);
+			this.plaintext[i] = englishAlphabet[index];
+		}
+		
+		//generate corresponding ciphertext
+		this.ciphertext = new char[textLength];
+		for(int i=0; i<textLength; i++){
+			int index = (this.plaintext[i] + this.key[i%(this.key.length)])%26;
 			this.ciphertext[i] = englishAlphabet[index];
 		}
 		return this.ciphertext;
